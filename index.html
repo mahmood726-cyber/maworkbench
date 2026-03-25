@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meta-Analysis Workbench — Complete Open-Access Toolkit</title>
+<style>
+:root {
+  --bg: #0f172a; --bg-card: #1e293b; --bg-hover: #334155;
+  --text: #f1f5f9; --text-sec: #94a3b8; --text-muted: #64748b;
+  --border: #334155; --accent: #14b8a6; --accent-dim: rgba(20,184,166,0.15);
+  --blue: #3b82f6; --green: #22c55e; --amber: #f59e0b; --red: #ef4444;
+  --purple: #a855f7; --pink: #ec4899; --cyan: #06b6d4;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --radius: 12px;
+}
+[data-theme="light"] {
+  --bg: #f8fafc; --bg-card: #ffffff; --bg-hover: #f1f5f9;
+  --text: #0f172a; --text-sec: #475569; --text-muted: #94a3b8;
+  --border: #e2e8f0; --accent-dim: rgba(20,184,166,0.08);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; }
+
+.header {
+  text-align: center; padding: 3rem 1.5rem 2rem;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  position: relative; overflow: hidden;
+}
+.header::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(ellipse at 40% 50%, rgba(20,184,166,0.06) 0%, transparent 60%); pointer-events: none; }
+.header h1 { font-size: 2.5rem; font-weight: 800; color: #fff; letter-spacing: -0.02em; }
+.header h1 span { color: var(--accent); }
+.header p { color: rgba(255,255,255,0.6); font-size: 1rem; margin-top: 0.5rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+.header .stats { display: flex; justify-content: center; gap: 2rem; margin-top: 1.5rem; flex-wrap: wrap; }
+.header .stat { text-align: center; }
+.header .stat-val { font-size: 1.8rem; font-weight: 800; color: var(--accent); }
+.header .stat-label { font-size: 0.75rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.05em; }
+
+.theme-btn { position: absolute; top: 1rem; right: 1rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 0.4rem 0.8rem; border-radius: 8px; cursor: pointer; font-size: 0.8rem; }
+.theme-btn:hover { background: rgba(255,255,255,0.2); }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+/* Workflow steps */
+.workflow { display: flex; flex-direction: column; gap: 0; }
+
+.step {
+  display: grid; grid-template-columns: 200px 1fr; gap: 1.5rem;
+  padding: 1.5rem 0; position: relative;
+}
+@media (max-width: 700px) { .step { grid-template-columns: 1fr; } }
+
+.step-label {
+  display: flex; align-items: flex-start; gap: 0.75rem;
+  position: relative; padding-top: 0.3rem;
+}
+.step-num {
+  width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 0.85rem; color: #fff; flex-shrink: 0;
+}
+.step-info h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.15rem; }
+.step-info p { font-size: 0.72rem; color: var(--text-muted); }
+
+/* Connector line */
+.step:not(:last-child)::before {
+  content: ''; position: absolute; left: 17px; top: 54px; bottom: -2px;
+  width: 2px; background: var(--border);
+}
+@media (max-width: 700px) { .step::before { display: none; } }
+
+.tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.75rem; }
+
+.tool-card {
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 0.85rem; cursor: default; transition: border-color 0.15s, box-shadow 0.15s;
+}
+.tool-card:hover { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), 0 4px 12px rgba(0,0,0,0.15); }
+.tool-card h4 { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.25rem; }
+.tool-card .desc { font-size: 0.75rem; color: var(--text-sec); line-height: 1.4; }
+.tool-card .meta { display: flex; gap: 0.5rem; margin-top: 0.5rem; flex-wrap: wrap; }
+.tool-card .tag { font-size: 0.65rem; padding: 0.12rem 0.45rem; border-radius: 6px; font-weight: 600; }
+.tag-html { background: rgba(59,130,246,0.15); color: var(--blue); }
+.tag-python { background: rgba(34,197,94,0.15); color: var(--green); }
+.tag-r { background: rgba(168,85,247,0.15); color: var(--purple); }
+.tag-new { background: rgba(20,184,166,0.15); color: var(--accent); }
+.tag-tests { background: rgba(245,158,11,0.15); color: var(--amber); }
+
+.section-divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+.footer { text-align: center; padding: 2rem 1rem; color: var(--text-muted); font-size: 0.78rem; }
+
+@media print { .theme-btn { display: none; } body { background: #fff; color: #000; } .tool-card { border: 1px solid #ccc; } }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <button class="theme-btn" id="themeBtn">Light Mode</button>
+  <h1>Meta-Analysis <span>Workbench</span></h1>
+  <p>A complete open-access toolkit for evidence synthesis — from protocol to publication</p>
+  <div class="stats">
+    <div class="stat"><div class="stat-val">107</div><div class="stat-label">Projects</div></div>
+    <div class="stat"><div class="stat-val">35+</div><div class="stat-label">Browser Tools</div></div>
+    <div class="stat"><div class="stat-val">8</div><div class="stat-label">R Packages</div></div>
+    <div class="stat"><div class="stat-val">17</div><div class="stat-label">Papers Ready</div></div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="workflow">
+
+    <!-- STEP 1: PROTOCOL -->
+    <div class="step">
+      <div class="step-label">
+        <div class="step-num" style="background:var(--purple);">1</div>
+        <div class="step-info"><h3>Protocol</h3><p>Plan and register the review</p></div>
+      </div>
+      <div class="tools-grid">
+        <div class="tool-card">
+          <h4>PRISMA Checker</h4>
+          <div class="desc">PRISMA 2020 compliance checker with 27 items, 6 extensions, compliance scoring, and auto-generated statements.</div>
+          <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-new">NEW</span><span class="tag tag-tests">25 tests</span></div>
+        </div>
+        <div class="tool-card">
+          <h4>AdaptSim</h4>
+          <div class="desc">Adaptive trial design simulator with rpact-validated group sequential boundaries.</div>
+          <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-tests">rpact-validated</span></div>
+        </div>
+        <div class="tool-card">
+          <h4>MA Power</h4>
+          <div class="desc">Power and sample size calculator for meta-analyses. Power curves at multiple I-squared levels.</div>
+          <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-new">NEW</span><span class="tag tag-tests">25 tests</span></div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <!-- STEP 2: SEARCH -->
+    <div class="step">
+      <div class="step-label">
+        <div class="step-num" style="background:var(--blue);">2</div>
+        <div class="step-info"><h3>Search</h3><p>Find and retrieve studies</p></div>
+      </div>
+      <div class="tools-grid">
+        <div class="tool-card">
+          <h4>CT.gov Search Strategies</h4>
+          <div class="desc">Clinical trials registry search with API integration for systematic identification.</div>
+          <div class="meta"><span class="tag tag-html">HTML</span></div>
+        </div>
+        <div class="tool-card">
+          <h4>TrialRadar</h4>
+          <div class="desc">Trial monitoring and tracking dashboard for living reviews.</div>
+          <div class="meta"><span class="tag tag-html">HTML</span></div>
+        </div>
+        <div class="tool-card">
+          <h4>Rayyan Replacement</h4>
+          <div class="desc">Browser-based title/abstract screening tool for study selection.</div>
+          <div class="meta"><span class="tag tag-html">HTML</span></div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <!-- STEP 3: EXTRACT -->
+    <div class="step">
+      <div class="step-label">
+        <div class="step-num" style="background:var(--cyan);">3</div>
+        <div class="step-info"><h3>Extract</h3><p>Pull data from publications</p></div>
+      </div>
+      <div class="tools-grid">
+        <div class="tool-card">
+          <h4>RCT Extractor v10.3</h4>
+          <div class="desc">Deterministic extraction pipeline. 94.6% accuracy, 863 tests. Text + PDF extraction.</div>
+          <div class="meta"><span class="tag tag-python">Python</span><span class="tag tag-tests">863 tests</span></div>
+        </div>
+        <div class="tool-card">
+          <h4>KMcurve</h4>
+          <div class="desc">Kaplan-Meier curve digitizer using TrOCR neural OCR for survival data extraction.</div>
+          <div class="meta"><span class="tag tag-python">Python</span></div>
+        </div>
+        <div class="tool-card">
+          <h4>MetaExtract</h4>
+          <div class="desc">Study data extraction tool for systematic reviews.</div>
+          <div class="meta"><span class="tag tag-html">HTML</span></div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <!-- STEP 4: ASSESS QUALITY -->
+    <div class="step">
+      <div class="step-label">
+        <div class="step-num" style="background:var(--amber);">4</div>
+        <div class="step-info"><h3>Assess Quality</h3><p>Risk of bias and certainty</p></div>
+      </div>
+      <div class="tools-grid">
+        <div class="tool-card">
+          <h4>RoB Assessor</h4>
+          <div class="desc">RoB 2 (5 domains) + ROBINS-I (7 domains) with algorithm-guided judgment suggestions.</div>
+          <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-new">NEW</span><span class="tag tag-tests">25 tests</span></div>
+        </div>
+        <div class="tool-card">
+          <h4>AutoGRADE</h4>
+          <div class="desc">Automated GRADE certainty of evidence assessment.</div>
+          <div class="meta"><span class="tag tag-html">HTML</span></div>
+        </div>
+        <div class="tool-card">
+          <h4>Bias Forensics</h4>
+          <div class="desc">8 publication bias methods applied to 307 Cochrane reviews. Comprehensive bias profiling.</div>
+          <div class="meta"><span class="tag tag-r">R</span><span class="tag tag-tests">307 reviews</span></div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <!-- STEP 5: ANALYSE -->
+    <div class="step">
+      <div class="step-label">
+        <div class="step-num" style="background:var(--green);">5</div>
+        <div class="step-info"><h3>Analyse</h3><p>Pool, synthesize, explore</p></div>
+      </div>
+      <div class="tools-grid">
+        <div class="tool-card">
+          <h4>TruthCert PairwisePro</h4>
+          <div class="desc">Proof-carrying pairwise meta-analysis. DL/REML/PM, forest plots, funnel plots, LOO. 101 tests.</div>
+          <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-tests">101 tests</span></div>
+        </div>
+        <div class="tool-card">
+          <h4>NMA Suite</h4>
+          <div class="desc">22 network meta-analysis variants. Consistency, inconsistency, ranking, league tables.</div>
+          <div class="meta"><span class="tag tag-html">HTML</span></div>
+        </div>
+        <div class="tool-card">
+          <h4>Component NMA</h4>
+          <div class="desc">World's first browser cNMA. Additive model + interactions, random-effects, design matrix.</div>
+          <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-new">NEW</span><span class="tag tag-tests">25 tests</span></div>
+        </div>
+        <div class="tool-card">
+          <h4>DTA Pro</h4>
+          <div class="desc">Diagnostic test accuracy MA. Bivariate GLMM, HSROC, SROC. WebR + mada validation.</div>
+          <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-tests">27 R parity</span></div>
+        </div>
+        <div class="tool-card">
+          <h4>IPD-Meta-Pro</h4>
+          <div class="desc">Individual patient data MA. 30 modules, GLMM, frailty, joint models. 473 tests.</div>
+          <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-tests">473 tests</span></div>
+        </div>
+        <div class="tool-card">
+          <h4>Dose-Response NMA</h4>
+          <div class="desc">GLS dose-response meta-analysis. 120/120 R parity, beats R in speed.</div>
+          <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-tests">120 R parity</span></div>
+        </div>
+        <div class="tool-card">
+          <h4>RMST Meta</h4>
+          <div class="desc">Restricted mean survival time meta-analysis for non-proportional hazards.</div>
+          <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-new">NEW</span></div>
+        </div>
+        <div class="tool-card">
+          <h4>MultiverseMA</h4>
+          <div class="desc">Multiverse meta-analysis. 36K specifications, VoE Janus plot, specification curve.</div>
+          <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-tests">111 tests</span></div>
+        </div>
+        <div class="tool-card">
+          <h4>CausalSynth</h4>
+          <div class="desc">Causal evidence triangulation. Multi-design synthesis, DAG editor, GRADE mapping.</div>
+          <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-tests">59 tests</span></div>
+        </div>
+        <div class="tool-card">
+          <h4>MAPriors</h4>
+          <div class="desc">MAP prior and dynamic borrowing. Robust MAP, power prior, OC simulation.</div>
+          <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-tests">38 tests</span></div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <!-- STEP 6: MONITOR -->
+    <div class="step">
+      <div class="step-label">
+        <div class="step-num" style="background:var(--pink);">6</div>
+        <div class="step-info"><h3>Monitor</h3><p>Living reviews and surveillance</p></div>
+      </div>
+      <div class="tools-grid">
+        <div class="tool-card">
+          <h4>Al-Mizan</h4>
+          <div class="desc">Evidence equipoise monitor. Cumulative MA + TSA + fragility + waste quantification.</div>
+          <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-tests">30 tests</span></div>
+        </div>
+        <div class="tool-card">
+          <h4>Living-Meta</h4>
+          <div class="desc">Living meta-analysis with CUSUM and sequential stopping rules.</div>
+          <div class="meta"><span class="tag tag-html">HTML</span></div>
+        </div>
+        <div class="tool-card">
+          <h4>CardioOracle</h4>
+          <div class="desc">CV trial outcome predictor. Bayesian borrowing + conditional power + meta-regression.</div>
+          <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-tests">60 tests</span></div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <!-- STEP 7: VALIDATE -->
+    <div class="step">
+      <div class="step-label">
+        <div class="step-num" style="background:var(--red);">7</div>
+        <div class="step-info"><h3>Validate</h3><p>Reproducibility and integrity</p></div>
+      </div>
+      <div class="tools-grid">
+        <div class="tool-card">
+          <h4>MetaReproducer</h4>
+          <div class="desc">Automated reproducibility audit of 501 Cochrane MAs. 98 tests, TruthCert provenance.</div>
+          <div class="meta"><span class="tag tag-python">Python</span><span class="tag tag-tests">98 tests</span></div>
+        </div>
+        <div class="tool-card">
+          <h4>Fragility Atlas</h4>
+          <div class="desc">Multiverse robustness of 407 Cochrane MAs. 56% fragile or unstable.</div>
+          <div class="meta"><span class="tag tag-python">Python</span><span class="tag tag-tests">15 tests</span></div>
+        </div>
+        <div class="tool-card">
+          <h4>Asa</h4>
+          <div class="desc">Forensic data integrity screener for trial publications.</div>
+          <div class="meta"><span class="tag tag-html">HTML</span></div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <!-- STEP 8: HTA -->
+    <div class="step">
+      <div class="step-label">
+        <div class="step-num" style="background:var(--text-muted);">8</div>
+        <div class="step-info"><h3>HTA</h3><p>Health technology assessment</p></div>
+      </div>
+      <div class="tools-grid">
+        <div class="tool-card">
+          <h4>HTA Artifact Standard</h4>
+          <div class="desc">41 decision-analytic engines. Markov, PSA, EVPI, expression parser. 3,337 tests.</div>
+          <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-tests">3,337 tests</span></div>
+        </div>
+        <div class="tool-card">
+          <h4>HTA Evidence Integrity</h4>
+          <div class="desc">Evidence integrity suite for HTA submissions.</div>
+          <div class="meta"><span class="tag tag-python">Python</span></div>
+        </div>
+        <div class="tool-card">
+          <h4>HTA Transportability</h4>
+          <div class="desc">Transportability engine for cross-jurisdiction HTA evidence.</div>
+          <div class="meta"><span class="tag tag-python">Python</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="footer">
+  <p>All tools are open-access, browser-based, and require no installation.</p>
+  <p>[AUTHOR_PLACEHOLDER] | [INSTITUTION_PLACEHOLDER] | [GITHUB_PLACEHOLDER]</p>
+</footer>
+
+<script>
+(function() {
+  'use strict';
+  var btn = document.getElementById('themeBtn');
+  btn.addEventListener('click', function() {
+    var html = document.documentElement;
+    var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    btn.textContent = next === 'dark' ? 'Light Mode' : 'Dark Mode';
+  });
+})();
+</script>
+</body>
+</html>
