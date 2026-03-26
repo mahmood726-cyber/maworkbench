@@ -76,10 +76,17 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
   padding: 0.85rem; cursor: default; transition: border-color 0.15s, box-shadow 0.15s;
 }
 .tool-card:hover { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), 0 4px 12px rgba(0,0,0,0.15); }
-.tool-card h4 { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.25rem; }
+.tool-card h4 { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.25rem; display: flex; align-items: center; gap: 0.4rem; }
 .tool-card .desc { font-size: 0.75rem; color: var(--text-sec); line-height: 1.4; }
-.tool-card .meta { display: flex; gap: 0.5rem; margin-top: 0.5rem; flex-wrap: wrap; }
+.tool-card .meta { display: flex; gap: 0.5rem; margin-top: 0.5rem; flex-wrap: wrap; align-items: center; }
 .tool-card .tag { font-size: 0.65rem; padding: 0.12rem 0.45rem; border-radius: 6px; font-weight: 600; }
+.launch-btn { font-size: 0.68rem; padding: 0.2rem 0.6rem; border-radius: 6px; border: 1px solid var(--accent); color: var(--accent); background: transparent; cursor: pointer; font-weight: 600; text-decoration: none; transition: all 0.15s; margin-left: auto; }
+.launch-btn:hover { background: var(--accent); color: #fff; }
+/* Search */
+.search-bar { max-width: 500px; margin: 0 auto 1.5rem; }
+.search-bar input { width: 100%; padding: 0.6rem 1rem; border: 1px solid var(--border); border-radius: 10px; background: var(--bg-card); color: var(--text); font-size: 0.9rem; }
+.search-bar input:focus { outline: 2px solid var(--accent); border-color: var(--accent); }
+.tool-card.hidden { display: none; }
 .tag-html { background: rgba(59,130,246,0.15); color: var(--blue); }
 .tag-python { background: rgba(34,197,94,0.15); color: var(--green); }
 .tag-r { background: rgba(168,85,247,0.15); color: var(--purple); }
@@ -101,13 +108,14 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
   <p>A complete open-access toolkit for evidence synthesis — from protocol to publication</p>
   <div class="stats">
     <div class="stat"><div class="stat-val">115+</div><div class="stat-label">Projects</div></div>
-    <div class="stat"><div class="stat-val">40+</div><div class="stat-label">Browser Tools</div></div>
+    <div class="stat"><div class="stat-val">35+</div><div class="stat-label">Browser Tools</div></div>
     <div class="stat"><div class="stat-val">8</div><div class="stat-label">R Packages</div></div>
     <div class="stat"><div class="stat-val">21</div><div class="stat-label">Papers Ready</div></div>
   </div>
 </header>
 
 <div class="container">
+  <div class="search-bar"><input type="text" id="toolSearch" placeholder="Search tools... (e.g., pooling, bias, NMA, forest)" aria-label="Search tools"></div>
   <div class="workflow">
 
     <!-- STEP 1: PROTOCOL -->
@@ -117,18 +125,18 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
         <div class="step-info"><h3>Protocol</h3><p>Plan and register the review</p></div>
       </div>
       <div class="tools-grid">
-        <div class="tool-card">
-          <h4>PRISMA Checker</h4>
+        <div class="tool-card" data-search="prisma reporting checklist compliance">
+          <h4>PRISMA Checker <a class="launch-btn" href="file:///C:/Models/PRISMAChecker/prisma_checker.html" target="_blank">Launch</a></h4>
           <div class="desc">PRISMA 2020 compliance checker with 27 items, 6 extensions, compliance scoring, and auto-generated statements.</div>
           <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-new">NEW</span><span class="tag tag-tests">25 tests</span></div>
         </div>
-        <div class="tool-card">
-          <h4>AdaptSim</h4>
+        <div class="tool-card" data-search="adaptive trial design sequential boundaries group">
+          <h4>AdaptSim <a class="launch-btn" href="file:///C:/AdaptSim/adaptsim.html" target="_blank">Launch</a></h4>
           <div class="desc">Adaptive trial design simulator with rpact-validated group sequential boundaries.</div>
-          <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-tests">rpact-validated</span></div>
+          <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-tests">11 tests</span></div>
         </div>
-        <div class="tool-card">
-          <h4>MA Power</h4>
+        <div class="tool-card" data-search="power sample size calculation">
+          <h4>MA Power <a class="launch-btn" href="file:///C:/Models/MAPowerCalc/ma_power.html" target="_blank">Launch</a></h4>
           <div class="desc">Power and sample size calculator for meta-analyses. Power curves at multiple I-squared levels.</div>
           <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-new">NEW</span><span class="tag tag-tests">25 tests</span></div>
         </div>
@@ -198,8 +206,8 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
         <div class="step-info"><h3>Assess Quality</h3><p>Risk of bias and certainty</p></div>
       </div>
       <div class="tools-grid">
-        <div class="tool-card">
-          <h4>RoB Assessor</h4>
+        <div class="tool-card" data-search="risk of bias RoB ROBINS quality assessment">
+          <h4>RoB Assessor <a class="launch-btn" href="file:///C:/Models/RoBAssessor/rob_assessor.html" target="_blank">Launch</a></h4>
           <div class="desc">RoB 2 (5 domains) + ROBINS-I (7 domains) with algorithm-guided judgment suggestions.</div>
           <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-new">NEW</span><span class="tag tag-tests">25 tests</span></div>
         </div>
@@ -225,28 +233,28 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
         <div class="step-info"><h3>Analyse</h3><p>Pool, synthesize, explore</p></div>
       </div>
       <div class="tools-grid">
-        <div class="tool-card">
-          <h4>Pooling Suite</h4>
+        <div class="tool-card" data-search="pooling tau squared estimators forest plot heterogeneity LOO leave-one-out GOSH Baujat">
+          <h4>Pooling Suite <a class="launch-btn" href="file:///C:/Models/PoolingSuite/pooling_suite.html" target="_blank">Launch</a></h4>
           <div class="desc">15 tau-squared estimators (FE, DL, REML, ML, PM, EB, SJ, HS, HE+), 3 CI methods, HKSJ, prediction intervals. LOO, Baujat plot, GOSH.</div>
           <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-new">NEW</span><span class="tag tag-tests">25 tests</span></div>
         </div>
-        <div class="tool-card">
-          <h4>Pub Bias Suite</h4>
+        <div class="tool-card" data-search="publication bias funnel plot Egger Begg trim fill PET PEESE p-curve selection model">
+          <h4>Pub Bias Suite <a class="launch-btn" href="file:///C:/Models/PubBiasSuite/pub_bias_suite.html" target="_blank">Launch</a></h4>
           <div class="desc">12 publication bias methods: Egger's, Begg's, trim-and-fill, PET-PEESE, 3PSM, p-curve, p-uniform*, WAAP-WLS, limit MA. 3 funnel plot types.</div>
           <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-new">NEW</span><span class="tag tag-tests">25 tests</span></div>
         </div>
-        <div class="tool-card">
-          <h4>Meta-Regression</h4>
+        <div class="tool-card" data-search="meta-regression moderator bubble plot mixed effects Knapp-Hartung">
+          <h4>Meta-Regression <a class="launch-btn" href="file:///C:/Models/MetaRegression/meta_regression.html" target="_blank">Launch</a></h4>
           <div class="desc">World's first browser meta-regression. Mixed-effects, bubble plots, permutation tests, Knapp-Hartung, model comparison (AIC/BIC).</div>
           <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-new">NEW</span><span class="tag tag-tests">25 tests</span></div>
         </div>
-        <div class="tool-card">
-          <h4>Bayesian MA</h4>
+        <div class="tool-card" data-search="bayesian hierarchical prior posterior shrinkage DIC">
+          <h4>Bayesian MA <a class="launch-btn" href="file:///C:/Models/BayesianMA/bayesian_ma.html" target="_blank">Launch</a></h4>
           <div class="desc">Normal-normal hierarchical model. Grid approximation, shrinkage forest plot, posterior densities, prior sensitivity, DIC.</div>
           <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-new">NEW</span><span class="tag tag-tests">25 tests</span></div>
         </div>
-        <div class="tool-card">
-          <h4>TruthCert PairwisePro</h4>
+        <div class="tool-card" data-search="pairwise truthcert proof-carrying DL REML forest funnel">
+          <h4>TruthCert PairwisePro <a class="launch-btn" href="file:///C:/HTML%20apps/Truthcert1_work/TruthCert-PairwisePro-v1.0-bundle.html" target="_blank">Launch</a></h4>
           <div class="desc">Proof-carrying pairwise meta-analysis. DL/REML/PM, forest plots, funnel plots, LOO. 101 tests.</div>
           <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-tests">101 tests</span></div>
         </div>
@@ -255,8 +263,8 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
           <div class="desc">22 network meta-analysis variants. Consistency, inconsistency, ranking, league tables.</div>
           <div class="meta"><span class="tag tag-html">HTML</span></div>
         </div>
-        <div class="tool-card">
-          <h4>Component NMA</h4>
+        <div class="tool-card" data-search="component NMA additive interaction network">
+          <h4>Component NMA <a class="launch-btn" href="file:///C:/Models/ComponentNMA/component_nma.html" target="_blank">Launch</a></h4>
           <div class="desc">World's first browser cNMA. Additive model + interactions, random-effects, design matrix.</div>
           <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-new">NEW</span><span class="tag tag-tests">25 tests</span></div>
         </div>
@@ -300,10 +308,15 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
           <div class="desc">Meta-analytic NNT calculator with decision curves and baseline risk sensitivity.</div>
           <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-new">NEW</span></div>
         </div>
-        <div class="tool-card">
-          <h4>MetaGuard</h4>
-          <div class="desc">3 frontier engines: Distribution-free P-values (DPD), Robust Truncated MA (RTMA), MetaForest (ML-based). 22 tests.</div>
-          <div class="meta"><span class="tag tag-python">Python</span><span class="tag tag-new">NEW</span><span class="tag tag-tests">22 tests</span></div>
+        <div class="tool-card" data-search="robust DPD outlier p-hacking RTMA MetaForest rare events causal ZIBGLMM frontier">
+          <h4>MetaGuard v2.0 <a class="launch-btn" href="file:///C:/Models/MetaGuard/metaguard.html" target="_blank">Launch</a></h4>
+          <div class="desc">5 frontier engines: DPD robust pooling, RTMA p-hack detection, MetaForest ML heterogeneity, ZIBGLMM rare events, causal aggregation. World-first.</div>
+          <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-new">NEW</span><span class="tag tag-tests">22 tests</span></div>
+        </div>
+        <div class="tool-card" data-search="pairwise pro advanced E-value Doi LFK fail-safe QEM quality effects proportion Freeman-Tukey">
+          <h4>PairwisePro v3.0 <a class="launch-btn" href="file:///C:/HTML%20apps/Truthcert1_work/PairwisePro-v3.0-advanced.html" target="_blank">Launch</a></h4>
+          <div class="desc">Decision-driven MA with 6 advanced methods: E-value, Doi plot/LFK, fail-safe N, QEM, proportion MA, permutation test.</div>
+          <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-new">NEW</span></div>
         </div>
       </div>
     </div>
@@ -317,10 +330,10 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
         <div class="step-info"><h3>Monitor</h3><p>Living reviews and surveillance</p></div>
       </div>
       <div class="tools-grid">
-        <div class="tool-card">
-          <h4>Al-Mizan</h4>
+        <div class="tool-card" data-search="equipoise monitor cumulative TSA fragility waste">
+          <h4>Al-Mizan <a class="launch-btn" href="file:///C:/AlMizan/al-mizan.html" target="_blank">Launch</a></h4>
           <div class="desc">Evidence equipoise monitor. Cumulative MA + TSA + fragility + waste quantification.</div>
-          <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-tests">30 tests</span></div>
+          <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-tests">9 tests</span></div>
         </div>
         <div class="tool-card">
           <h4>Living-Meta</h4>
@@ -354,9 +367,9 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
           <div class="desc">Multiverse robustness of 407 Cochrane MAs. 56% fragile or unstable.</div>
           <div class="meta"><span class="tag tag-python">Python</span><span class="tag tag-tests">15 tests</span></div>
         </div>
-        <div class="tool-card">
-          <h4>Asa v2.0</h4>
-          <div class="desc">Forensic data integrity screener — 7 statistical fangs (GRIM, SPRITE, Benford, terminal digits, etc.). 85 tests.</div>
+        <div class="tool-card" data-search="forensic integrity GRIM GRIMMER SPRITE statcheck Benford TDA duplication fabrication">
+          <h4>Asa v2.0 <a class="launch-btn" href="file:///C:/Models/Asa/asa.html" target="_blank">Launch</a></h4>
+          <div class="desc">Forensic data integrity screener — 7 statistical fangs (GRIM, GRIMMER, SPRITE, statcheck, Benford, TDA, duplication). Forensic Integrity Score.</div>
           <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-new">NEW</span><span class="tag tag-tests">85 tests</span></div>
         </div>
         <div class="tool-card">
@@ -415,6 +428,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
 <script>
 (function() {
   'use strict';
+  // Theme toggle
   var btn = document.getElementById('themeBtn');
   btn.addEventListener('click', function() {
     var html = document.documentElement;
@@ -422,6 +436,36 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
     html.setAttribute('data-theme', next);
     btn.textContent = next === 'dark' ? 'Light Mode' : 'Dark Mode';
   });
+
+  // Search/filter
+  var search = document.getElementById('toolSearch');
+  if (search) {
+    search.addEventListener('input', function() {
+      var q = search.value.toLowerCase().trim();
+      var cards = document.querySelectorAll('.tool-card');
+      var visibleSteps = {};
+      cards.forEach(function(card) {
+        var text = (card.textContent + ' ' + (card.getAttribute('data-search') || '')).toLowerCase();
+        var match = !q || text.indexOf(q) >= 0;
+        card.classList.toggle('hidden', !match);
+        if (match) {
+          var step = card.closest('.step');
+          if (step) visibleSteps[Array.from(step.parentElement.children).indexOf(step)] = true;
+        }
+      });
+      // Hide steps with no visible cards
+      document.querySelectorAll('.step').forEach(function(step, idx) {
+        var hasVisible = step.querySelectorAll('.tool-card:not(.hidden)').length > 0;
+        step.style.display = (!q || hasVisible) ? '' : 'none';
+      });
+      // Hide dividers between hidden steps
+      document.querySelectorAll('.section-divider').forEach(function(hr) {
+        var prev = hr.previousElementSibling;
+        var next = hr.nextElementSibling;
+        hr.style.display = (!q || (prev && prev.style.display !== 'none') || (next && next.style.display !== 'none')) ? '' : 'none';
+      });
+    });
+  }
 })();
 </script>
 </body>
