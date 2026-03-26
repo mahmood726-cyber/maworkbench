@@ -100,10 +100,10 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
   <h1>Meta-Analysis <span>Workbench</span></h1>
   <p>A complete open-access toolkit for evidence synthesis — from protocol to publication</p>
   <div class="stats">
-    <div class="stat"><div class="stat-val">107</div><div class="stat-label">Projects</div></div>
-    <div class="stat"><div class="stat-val">35+</div><div class="stat-label">Browser Tools</div></div>
+    <div class="stat"><div class="stat-val">115+</div><div class="stat-label">Projects</div></div>
+    <div class="stat"><div class="stat-val">40+</div><div class="stat-label">Browser Tools</div></div>
     <div class="stat"><div class="stat-val">8</div><div class="stat-label">R Packages</div></div>
-    <div class="stat"><div class="stat-val">17</div><div class="stat-label">Papers Ready</div></div>
+    <div class="stat"><div class="stat-val">21</div><div class="stat-label">Papers Ready</div></div>
   </div>
 </header>
 
@@ -226,6 +226,26 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
       </div>
       <div class="tools-grid">
         <div class="tool-card">
+          <h4>Pooling Suite</h4>
+          <div class="desc">15 tau-squared estimators (FE, DL, REML, ML, PM, EB, SJ, HS, HE+), 3 CI methods, HKSJ, prediction intervals. LOO, Baujat plot, GOSH.</div>
+          <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-new">NEW</span><span class="tag tag-tests">25 tests</span></div>
+        </div>
+        <div class="tool-card">
+          <h4>Pub Bias Suite</h4>
+          <div class="desc">12 publication bias methods: Egger's, Begg's, trim-and-fill, PET-PEESE, 3PSM, p-curve, p-uniform*, WAAP-WLS, limit MA. 3 funnel plot types.</div>
+          <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-new">NEW</span><span class="tag tag-tests">25 tests</span></div>
+        </div>
+        <div class="tool-card">
+          <h4>Meta-Regression</h4>
+          <div class="desc">World's first browser meta-regression. Mixed-effects, bubble plots, permutation tests, Knapp-Hartung, model comparison (AIC/BIC).</div>
+          <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-new">NEW</span><span class="tag tag-tests">25 tests</span></div>
+        </div>
+        <div class="tool-card">
+          <h4>Bayesian MA</h4>
+          <div class="desc">Normal-normal hierarchical model. Grid approximation, shrinkage forest plot, posterior densities, prior sensitivity, DIC.</div>
+          <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-new">NEW</span><span class="tag tag-tests">25 tests</span></div>
+        </div>
+        <div class="tool-card">
           <h4>TruthCert PairwisePro</h4>
           <div class="desc">Proof-carrying pairwise meta-analysis. DL/REML/PM, forest plots, funnel plots, LOO. 101 tests.</div>
           <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-tests">101 tests</span></div>
@@ -274,6 +294,16 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
           <h4>MAPriors</h4>
           <div class="desc">MAP prior and dynamic borrowing. Robust MAP, power prior, OC simulation.</div>
           <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-tests">38 tests</span></div>
+        </div>
+        <div class="tool-card">
+          <h4>NNTMapper</h4>
+          <div class="desc">Meta-analytic NNT calculator with decision curves and baseline risk sensitivity.</div>
+          <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-new">NEW</span></div>
+        </div>
+        <div class="tool-card">
+          <h4>MetaGuard</h4>
+          <div class="desc">3 frontier engines: Distribution-free P-values (DPD), Robust Truncated MA (RTMA), MetaForest (ML-based). 22 tests.</div>
+          <div class="meta"><span class="tag tag-python">Python</span><span class="tag tag-new">NEW</span><span class="tag tag-tests">22 tests</span></div>
         </div>
       </div>
     </div>
@@ -325,9 +355,24 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
           <div class="meta"><span class="tag tag-python">Python</span><span class="tag tag-tests">15 tests</span></div>
         </div>
         <div class="tool-card">
-          <h4>Asa</h4>
-          <div class="desc">Forensic data integrity screener for trial publications.</div>
-          <div class="meta"><span class="tag tag-html">HTML</span></div>
+          <h4>Asa v2.0</h4>
+          <div class="desc">Forensic data integrity screener — 7 statistical fangs (GRIM, SPRITE, Benford, terminal digits, etc.). 85 tests.</div>
+          <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-new">NEW</span><span class="tag tag-tests">85 tests</span></div>
+        </div>
+        <div class="tool-card">
+          <h4>BenfordMA</h4>
+          <div class="desc">Benford's Law digit forensics for meta-analyses. MAD analysis across 403 Cochrane reviews.</div>
+          <div class="meta"><span class="tag tag-html">HTML</span><span class="tag tag-new">NEW</span></div>
+        </div>
+        <div class="tool-card">
+          <h4>Evidence Half-Life</h4>
+          <div class="desc">Cumulative multiverse stability analysis. 57% of 307 Cochrane MAs never stabilize.</div>
+          <div class="meta"><span class="tag tag-python">Python</span><span class="tag tag-new">NEW</span><span class="tag tag-tests">15 tests</span></div>
+        </div>
+        <div class="tool-card">
+          <h4>EvidenceQuality</h4>
+          <div class="desc">6-dimensional quality concordance engine across 403 Cochrane reviews.</div>
+          <div class="meta"><span class="tag tag-python">Python</span><span class="tag tag-new">NEW</span><span class="tag tag-tests">14 tests</span></div>
         </div>
       </div>
     </div>
