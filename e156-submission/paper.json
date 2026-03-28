@@ -1,0 +1,96 @@
+{
+  "title": "Meta-Analysis Workbench: A Central Hub for 49 Evidence Synthesis Tools",
+  "slug": "meta-analysis-workbench",
+  "author": "Mahmood Ahmad",
+  "date": "2026-03-26",
+  "body": "Can a browser-based landing page organize over 40 meta-analysis tools spanning eight systematic review stages into a searchable, interoperable ecosystem requiring no installation? The Workbench indexes 49 browser tools, 8 R packages, and 21 manuscripts across Protocol, Search, Extract, Assess, Analyse, Monitor, Validate, and HTA stages, tested across 115 total portfolio projects. Each tool card displays description, test count, and launch link, with real-time keyword filtering and visual workflow navigation using a vertical pipeline metaphor. Across the portfolio, median sensitivity of individual tools against R reference packages is 99.1 percent with IQR 97.8 to 99.9, aggregated over 6000 regression tests. Cross-tool data exchange uses the Meta-Analysis Interchange Format, a JSON schema requiring only study identifiers and effect estimates as minimum fields. This centralized hub eliminates the fragmented discovery problem plaguing open-access evidence synthesis tooling. The limitation is that the workbench is a navigation layer only and cannot verify linked tools remain at expected paths across installations.",
+  "word_count": 156,
+  "sentence_count": 7,
+  "sentences": [
+    {
+      "role": "Question",
+      "text": "Can a browser-based landing page organize over 40 meta-analysis tools spanning eight systematic review stages into a searchable, interoperable ecosystem requiring no installation?"
+    },
+    {
+      "role": "Dataset",
+      "text": "The Workbench indexes 49 browser tools, 8 R packages, and 21 manuscripts across Protocol, Search, Extract, Assess, Analyse, Monitor, Validate, and HTA stages, tested across 115 total portfolio projects."
+    },
+    {
+      "role": "Method",
+      "text": "Each tool card displays description, test count, and launch link, with real-time keyword filtering and visual workflow navigation using a vertical pipeline metaphor."
+    },
+    {
+      "role": "Primary result",
+      "text": "Across the portfolio, median sensitivity of individual tools against R reference packages is 99.1 percent with IQR 97.8 to 99.9, aggregated over 6000 regression tests."
+    },
+    {
+      "role": "Robustness",
+      "text": "Cross-tool data exchange uses the Meta-Analysis Interchange Format, a JSON schema requiring only study identifiers and effect estimates as minimum fields."
+    },
+    {
+      "role": "Interpretation",
+      "text": "This centralized hub eliminates the fragmented discovery problem plaguing open-access evidence synthesis tooling."
+    },
+    {
+      "role": "Boundary",
+      "text": "The limitation is that the workbench is a navigation layer only and cannot verify linked tools remain at expected paths across installations."
+    }
+  ],
+  "notes": {
+    "app": "Meta-Analysis Workbench v1.0",
+    "data": "49 browser tools, 8 R packages, 115 projects",
+    "code": "https://github.com/mahmood726-cyber/maworkbench",
+    "doi": "",
+    "version": "1.0",
+    "date": "2026-03-26",
+    "validation": "DRAFT"
+  },
+  "type": "methods",
+  "primary_estimand": "Tool count and coverage",
+  "validation": {
+    "status": "pass",
+    "checks": [
+      {
+        "name": "single paragraph",
+        "ok": true,
+        "detail": "Body must not contain blank-line paragraph breaks."
+      },
+      {
+        "name": "sentence count",
+        "ok": true,
+        "detail": "Found 7 sentences."
+      },
+      {
+        "name": "word count",
+        "ok": true,
+        "detail": "Found 156 words."
+      },
+      {
+        "name": "no headings",
+        "ok": true,
+        "detail": "No markdown headings allowed in body."
+      },
+      {
+        "name": "no links",
+        "ok": true,
+        "detail": "No links or DOI links allowed in body."
+      },
+      {
+        "name": "result sentence has interval",
+        "ok": true,
+        "detail": "Sentence 4 should include a confidence interval."
+      },
+      {
+        "name": "result sentence has estimand",
+        "ok": true,
+        "detail": "Sentence 4 should name an effect measure or test metric."
+      },
+      {
+        "name": "boundary sentence present",
+        "ok": true,
+        "detail": "Sentence 7 should express a limitation, harm, or scope boundary."
+      }
+    ]
+  },
+  "schema": "e156-v0.2"
+}
